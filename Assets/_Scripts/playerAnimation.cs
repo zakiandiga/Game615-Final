@@ -31,7 +31,7 @@ public class playerAnimation : MonoBehaviour
         }
         if(horizontalVelocity.magnitude == 0)
         {
-            anim.SetTrigger("idle");
+            anim.SetTrigger("idle");            
         }
 
 

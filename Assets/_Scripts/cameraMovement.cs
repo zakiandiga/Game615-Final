@@ -5,7 +5,7 @@ using UnityEngine;
 public class cameraMovement : MonoBehaviour
 {
     public Transform player;
-    public float smoothFollow = 0.2f;
+    public float smoothFollow = 10f;
     public float smoothHeight;
     public Vector3 camHeight;
     public float mouseSense = 100f;

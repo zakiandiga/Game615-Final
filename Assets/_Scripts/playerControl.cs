@@ -2,29 +2,31 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class playerConlrol : MonoBehaviour
+public class playerControl : MonoBehaviour
 {
     float inputX;
     float inputY;
     float moveSpeed;
+    public float minSpeed = 0.1f;
     public float turnSpeed;
     public float throttle = 5;
     
     public float gravity;
     private float verticalVel;
-    public float allowRotation;
+    public float allowRotation = 0.5f;
     public Transform cameraController;
     //public float jump;
     
     private Vector3 moveDir = Vector3.zero;
     private Vector3 moveVector;
     CharacterController control;
-
+    
     
     void Start()
     {
         control = GetComponent<CharacterController>();
-        control.detectCollisions = false;
+        //control.detectCollisions = false;
+        
     }
 
     void PlayerMove()
@@ -42,7 +44,7 @@ public class playerConlrol : MonoBehaviour
 
         moveDir = forward * inputY + right * inputX;
 
-        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(moveDir), turnSpeed);
+        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(moveDir), turnSpeed);
 
     }
 
@@ -60,9 +62,15 @@ public class playerConlrol : MonoBehaviour
         
         if (moveSpeed > allowRotation)
         {
-            PlayerMove();
+            PlayerMove();            
         }
 
+        /*
+        if(moveSpeed < minSpeed)
+        {
+            moveDir = Vector3.zero;
+        }
+        */
     }
 
     void Update()

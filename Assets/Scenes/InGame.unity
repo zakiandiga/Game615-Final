@@ -208,11 +208,81 @@ Transform:
   m_GameObject: {fileID: 229686895}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2.88, y: 1.26, z: 2.56}
   m_Children: []
   m_Father: {fileID: 2143137262}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &337587813
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 125852, guid: 58ac37417e60e534f91138088a3e6f70, type: 3}
+      propertyPath: m_Name
+      value: Dialogue Manager
+      objectReference: {fileID: 0}
+    - target: {fileID: 425660, guid: 58ac37417e60e534f91138088a3e6f70, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 425660, guid: 58ac37417e60e534f91138088a3e6f70, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 425660, guid: 58ac37417e60e534f91138088a3e6f70, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 425660, guid: 58ac37417e60e534f91138088a3e6f70, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 425660, guid: 58ac37417e60e534f91138088a3e6f70, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 425660, guid: 58ac37417e60e534f91138088a3e6f70, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 425660, guid: 58ac37417e60e534f91138088a3e6f70, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 425660, guid: 58ac37417e60e534f91138088a3e6f70, type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 425660, guid: 58ac37417e60e534f91138088a3e6f70, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 425660, guid: 58ac37417e60e534f91138088a3e6f70, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 425660, guid: 58ac37417e60e534f91138088a3e6f70, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11424616, guid: 58ac37417e60e534f91138088a3e6f70, type: 3}
+      propertyPath: detectMouseControl
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11424616, guid: 58ac37417e60e534f91138088a3e6f70, type: 3}
+      propertyPath: controlCursorState
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11426072, guid: 58ac37417e60e534f91138088a3e6f70, type: 3}
+      propertyPath: initialDatabase
+      value: 
+      objectReference: {fileID: 11400000, guid: ebfcf2d34ff4ce04bb7b412283d586c9,
+        type: 2}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 58ac37417e60e534f91138088a3e6f70, type: 3}
 --- !u!1 &380620949
 GameObject:
   m_ObjectHideFlags: 0
@@ -319,7 +389,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 4580578943868154}
-  smoothCam: 10
+  smoothFollow: 10
   smoothHeight: 10
   camHeight: {x: 0, y: 1, z: -1.25}
   mouseSense: 200
@@ -354,7 +424,7 @@ Transform:
   m_Children:
   - {fileID: 963194228}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &697066957
 GameObject:
@@ -735,8 +805,11 @@ GameObject:
   - component: {fileID: 1224081577}
   - component: {fileID: 1224081576}
   - component: {fileID: 1224081575}
+  - component: {fileID: 1224081580}
+  - component: {fileID: 1224081581}
+  - component: {fileID: 1224081579}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: The Mighty Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -809,12 +882,118 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1224081574}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.46, y: 0.656, z: -0.005126953}
+  m_LocalPosition: {x: 5.95, y: 0.656, z: -9.24}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2143137262}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1224081579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1224081574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c593457cd8105e148906690e1707c592, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trigger: 32
+  condition:
+    luaConditions: []
+    questConditions: []
+    acceptedTags: []
+    acceptedGameObjects:
+    - {fileID: 1290423881}
+    luaWizardIndex: -1
+    lastEvaluationValue: 0
+  setQuestState: 1
+  questName: 
+  questState: 0
+  setQuestEntryState: 0
+  questEntryNumber: 1
+  questEntryState: 0
+  luaCode: 
+  sequence: 
+  sequenceSpeaker: {fileID: 0}
+  sequenceListener: {fileID: 0}
+  waitOneFrameOnStartOrEnable: 1
+  alertMessage: 
+  textTable: {fileID: 0}
+  alertDuration: 0
+  sendMessages: []
+  barkSource: 0
+  barkConversation: 
+  barkText: 
+  barkTextSequence: 
+  barker: {fileID: 0}
+  barkTarget: {fileID: 0}
+  barkOrder: 0
+  allowBarksDuringConversations: 0
+  skipBarkIfNoValidEntries: 0
+  cacheBarkLines: 0
+  conversation: New Conversation 1
+  conversationConversant: {fileID: 1224081578}
+  conversationActor: {fileID: 4580578943868154}
+  startConversationEntryID: -1
+  exclusive: 1
+  skipIfNoValidEntries: 1
+  stopConversationOnTriggerExit: 0
+  stopConversationIfTooFar: 0
+  maxConversationDistance: 5
+  monitorConversationDistanceFrequency: 1
+  showCursorDuringConversation: 0
+  pauseGameDuringConversation: 0
+  setActiveActions: []
+  setEnabledActions: []
+  setAnimatorStateActions: []
+  onExecute:
+    m_PersistentCalls:
+      m_Calls: []
+  useConversationTitlePicker: 1
+  useBarkTitlePicker: 1
+  useQuestNamePicker: 1
+  selectedDatabase: {fileID: 11400000, guid: ebfcf2d34ff4ce04bb7b412283d586c9, type: 2}
+--- !u!114 &1224081580
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1224081574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 274b80ab5b659c646ba9338870d14625, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  overrideName: 
+  overrideUseMessage: 
+  maxUseDistance: 100
+  events:
+    onSelect:
+      m_PersistentCalls:
+        m_Calls: []
+    onDeselect:
+      m_PersistentCalls:
+        m_Calls: []
+    onUse:
+      m_PersistentCalls:
+        m_Calls: []
+--- !u!65 &1224081581
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1224081574}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5, y: 1, z: 5}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1290423881 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5036513496574799391, guid: b54d81cf4d93d9440a8f40b549875716,
@@ -835,6 +1014,141 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveForward: 119
   moveBackward: 115
+--- !u!114 &1290423886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1290423881}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 624654ff0a68ee844994f728ddf3d991, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectAt: 0
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  distanceFrom: 1
+  maxSelectionDistance: 30
+  runRaycasts: 1
+  raycastAll: 0
+  useDefaultGUI: 1
+  guiSkin: {fileID: 0}
+  guiStyleName: label
+  alignment: 1
+  textStyle: 1
+  textStyleColor: {r: 0, g: 0, b: 0, a: 1}
+  inRangeColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  outOfRangeColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  reticle:
+    inRange: {fileID: 0}
+    outOfRange: {fileID: 0}
+    width: 64
+    height: 64
+  useKey: 32
+  useButton: Fire2
+  defaultUseMessage: (spacebar to interact)
+  broadcastToChildren: 1
+  actorTransform: {fileID: 0}
+  tooFarMessage: 
+  onSelectedUsable:
+    m_PersistentCalls:
+      m_Calls: []
+  onDeselectedUsable:
+    m_PersistentCalls:
+      m_Calls: []
+  tooFarEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  debug: 0
+--- !u!114 &1290423887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1290423881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 963d6358c55a0f44d8de57bee560f184, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  useDefaultGUI: 1
+  guiSkin: {fileID: 0}
+  guiStyleName: label
+  alignment: 2
+  color: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  textStyle: 1
+  textStyleColor: {r: 0, g: 0, b: 0, a: 1}
+  defaultUseMessage: (spacebar to interact)
+  useKey: 32
+  useButton: Fire2
+  enableTouch: 0
+  touchArea:
+    origin: 0
+    alignment: 0
+    x:
+      scale: 0
+      value: 0
+    y:
+      scale: 0
+      value: 0
+    width:
+      scale: 0
+      value: 0
+    height:
+      scale: 0
+      value: 0
+    minPixelWidth: 0
+    minPixelHeight: 0
+  broadcastToChildren: 1
+  actorTransform: {fileID: 4580578943868154}
+  onSelectedUsable:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4580578943868154}
+        m_MethodName: LookAt
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1224081578}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
+  onDeselectedUsable:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!65 &1290423888
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1290423881}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.69807726, y: 0.90999544, z: 0.7379629}
+  m_Center: {x: -0.033881158, y: 0.49144107, z: 0.52}
+--- !u!114 &1290423889
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1290423881}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf9481d631e872c45a9f702509a148ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tagSpecificElements: []
+  layerSpecificElements: []
 --- !u!1 &1640078899
 GameObject:
   m_ObjectHideFlags: 0
@@ -1006,36 +1320,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1726332537}
   m_CullTransparentMesh: 0
---- !u!1 &1728787469
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1728787470}
-  m_Layer: 0
-  m_Name: Dialog Manager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1728787470
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1728787469}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 64.25367, y: 107.64139, z: 28.90625}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2143137261
 GameObject:
   m_ObjectHideFlags: 0
