@@ -8,11 +8,12 @@ public class cameraMovement : MonoBehaviour
     public float smoothFollow = 0.2f;
     public float smoothHeight;
     public Vector3 camHeight;
-    public float mouseSense = 100f;
+    public float mouseSense = 10f;
     //public Quaternion camAngle;
     //public Vector3 defaultView;
     public float turnSpeed;
-    float xRot =28.5f;
+    float xRot;
+    float yRot;
     float yPos = 1f;
     Camera cam;
     public GameObject cameraController;
@@ -27,26 +28,31 @@ public class cameraMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //POSITION
         float mouseX = Input.GetAxis("Mouse X") * mouseSense * Time.deltaTime;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSense * Time.deltaTime;
         Vector3 newPosition = new Vector3(player.position.x, player.position.y +0.6f, player.position.z);
         Vector3 smoothPos = Vector3.Lerp(transform.position, newPosition, smoothFollow * Time.deltaTime);
-
         transform.position = smoothPos;
-        transform.Rotate(Vector3.up, mouseX);
-                             
-        yPos -= mouseY/20;
-        yPos = Mathf.Clamp(yPos, 0.3f, 2f);
-        Vector3 newCampos = new Vector3(cam.transform.position.x, yPos, cam.transform.position.z);
-        Vector3 camSmooth = Vector3.Lerp(cam.transform.position, newCampos, smoothHeight * Time.deltaTime);
-        Camera.main.transform.position = camSmooth;
 
-        //Vector3 targetPos = new Vector3(cam.transform.position.x, player.position.y, player.position.z);
-        //cam.transform.LookAt(targetPos);
+        //ROTATION
+        xRot += mouseX;
+        yRot -= mouseY;
+        yRot = Mathf.Clamp(yRot, -40f, 40f);
+        transform.rotation = Quaternion.Euler(yRot,xRot,0);
         
-        xRot -= mouseY;
-        xRot = Mathf.Clamp(xRot, -30f, 45f);
-        Camera.main.transform.localRotation = Quaternion.Euler(xRot, 0, 0);
+         
+        //VERTICAL MOUSE = MOVE VERTICAL CAM
+        //yPos -= mouseY/20;
+        //yPos = Mathf.Clamp(yPos, 0.3f, 2f);
+        //Vector3 newCampos = new Vector3(cam.transform.position.x, yPos, cam.transform.position.z);
+        //Vector3 camSmooth = Vector3.Lerp(cam.transform.position, newCampos, smoothHeight * Time.deltaTime);
+        //Camera.main.transform.position = camSmooth;
+
+        //VERTICAL MOUSE = ROTATE CAM
+        //xRot -= mouseY;
+        //xRot = Mathf.Clamp(xRot, -30f, 45f);
+        //Camera.main.transform.localRotation = Quaternion.Euler(xRot, 0, 0);
         
         //cam.transform.LookAt(newPosition);
 
