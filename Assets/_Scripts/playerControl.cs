@@ -7,7 +7,7 @@ public class playerControl : MonoBehaviour
     float inputX;
     float inputY;
     float moveSpeed;
-    public float minSpeed = 0.1f;
+    //public float minSpeed = 0.1f;
     public float turnSpeed;
     public float throttle = 5;
     
