@@ -57,11 +57,17 @@ public class playerConlrol : MonoBehaviour
 
         //calculation
         moveSpeed = (new Vector2(inputX, inputY).sqrMagnitude);
-        
+
+
+
+
+
         if (moveSpeed > allowRotation)
         {
             PlayerMove();
+            print(control.velocity.magnitude);
         }
+
 
     }
 

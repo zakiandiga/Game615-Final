@@ -208,7 +208,7 @@ Transform:
   m_GameObject: {fileID: 229686895}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 3, y: 1, z: 3}
   m_Children: []
   m_Father: {fileID: 2143137262}
   m_RootOrder: 0
@@ -1100,6 +1100,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SkinWidth
       value: 0.001
+      objectReference: {fileID: 0}
+    - target: {fileID: 5035404992451599681, guid: b54d81cf4d93d9440a8f40b549875716,
+        type: 3}
+      propertyPath: m_MinMoveDistance
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 5035404992451599687, guid: b54d81cf4d93d9440a8f40b549875716,
         type: 3}
