@@ -7,6 +7,8 @@ public class playerConlrol : MonoBehaviour
     float inputX;
     float inputY;
     float moveSpeed;
+    public float jumpSpeed = 10f;
+    public KeyCode Jump;
     public float turnSpeed;
     public float throttle = 5;
     
@@ -58,10 +60,6 @@ public class playerConlrol : MonoBehaviour
         //calculation
         moveSpeed = (new Vector2(inputX, inputY).sqrMagnitude);
 
-
-
-
-
         if (moveSpeed > allowRotation)
         {
             PlayerMove();
@@ -73,15 +71,22 @@ public class playerConlrol : MonoBehaviour
 
     void Update()
     {
-        //CharacterController control = GetComponent<CharacterController>();
         InputMagnitude();
-        
-        
+
+
         if (control.isGrounded)
         {
+            if (Input.GetButton("Jump"))
+            {
+                moveDir.y = jumpSpeed;
+                print("Jump");
+            }
             verticalVel -= 0;
+            
+
 
         }
+
         if(control.isGrounded == false)
         {
             verticalVel -= gravity;
