@@ -319,7 +319,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 4580578943868154}
-  smoothCam: 10
+  smoothFollow: 10
   smoothHeight: 10
   camHeight: {x: 0, y: 1, z: -1.25}
   mouseSense: 200

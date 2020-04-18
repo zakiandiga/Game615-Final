@@ -24,7 +24,7 @@ public class playerConlrol : MonoBehaviour
     void Start()
     {
         control = GetComponent<CharacterController>();
-        control.detectCollisions = false;
+        //control.detectCollisions = false;
     }
 
     void PlayerMove()
