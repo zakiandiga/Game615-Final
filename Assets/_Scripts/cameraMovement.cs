@@ -40,6 +40,7 @@ public class cameraMovement : MonoBehaviour
         yRot -= mouseY;
         yRot = Mathf.Clamp(yRot, -40f, 40f);
         transform.rotation = Quaternion.Euler(yRot,xRot,0);
+
         
          
         //VERTICAL MOUSE = MOVE VERTICAL CAM
