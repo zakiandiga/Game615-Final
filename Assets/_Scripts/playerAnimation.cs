@@ -22,8 +22,9 @@ public class playerAnimation : MonoBehaviour
     void Update()
     {
         horizontalVelocity = new Vector3(control.velocity.x, 0, control.velocity.z);
-
+        //verticallVelocity = new Vector3(0, control.velocity.y, 0);
         float horizontalSpeed = horizontalVelocity.magnitude;
+        //float verticalSpeed = verticalVelocity.magnitude;
 
         if (horizontalSpeed > 0)
         {
@@ -33,7 +34,10 @@ public class playerAnimation : MonoBehaviour
         {
             anim.SetTrigger("idle");
         }
-
+        if (Input.GetButtonDown("Jump"))
+        {
+            anim.SetTrigger("jump");
+        }
 
         /*if (lastPos != gameObject.transform.position)
         {

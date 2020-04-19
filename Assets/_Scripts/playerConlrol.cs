@@ -14,7 +14,7 @@ public class playerConlrol : MonoBehaviour
     
     public float gravity;
     private float verticalVel;
-    public float allowRotation;
+    public float allowMove;
     public Transform cameraController;
     //public float jump;
     
@@ -36,6 +36,7 @@ public class playerConlrol : MonoBehaviour
 
         var forward = cameraController.forward;
         var right = cameraController.right;
+        var up = 0;
 
         forward.y = 0f;
         right.y = 0f;
@@ -43,8 +44,12 @@ public class playerConlrol : MonoBehaviour
         right.Normalize();
 
         moveDir = forward * inputY + right * inputX;
+        //moveDir = new Vector3(forward.x * inputY, 0, right.x * inputX);
+        print(moveDir);
 
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(moveDir), turnSpeed);
+
+
 
     }
 
@@ -55,15 +60,14 @@ public class playerConlrol : MonoBehaviour
         //Input value
         inputX = Input.GetAxis("Horizontal");
         inputY = Input.GetAxis("Vertical");
-        //speed = new Vector2(inputX, inputY).sqrMagnitude;
 
         //calculation
         moveSpeed = (new Vector2(inputX, inputY).sqrMagnitude);
 
-        if (moveSpeed > allowRotation)
+        if (moveSpeed > allowMove)
         {
             PlayerMove();
-            print(control.velocity.magnitude);
+            
         }
 
 
@@ -74,25 +78,28 @@ public class playerConlrol : MonoBehaviour
         InputMagnitude();
 
 
+
         if (control.isGrounded)
         {
-            if (Input.GetButton("Jump"))
-            {
-                moveDir.y = jumpSpeed;
-                print("Jump");
-            }
-            verticalVel -= 0;
+            Debug.Log("isGrounded");
+            //verticalVel -= 0;
             
+            if (Input.GetButtonDown("Jump"))
+            {
+                Debug.Log("Jump");
+                moveDir.y = jumpSpeed;
 
-
+            }
         }
 
-        if(control.isGrounded == false)
+
+
+        if (control.isGrounded == false)
         {
             verticalVel -= gravity;
         }
 
-        moveDir.y -= gravity * Time.deltaTime;
+        moveDir.y += Physics.gravity.y * gravity * Time.deltaTime;
         control.Move((moveDir * throttle) * Time.deltaTime);
 
         //control.Move(moveDir * Time.deltaTime);
