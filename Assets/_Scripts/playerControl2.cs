@@ -28,31 +28,31 @@ public class playerControl2 : MonoBehaviour
 
     }
 
-    void LateUpdate()
+    void Update()
     {
         inputX = Input.GetAxis("Horizontal");
         inputY = Input.GetAxis("Vertical");
         float mouseX = Input.GetAxis("Mouse X");
-        float yDir = moveDir.y;
+        //float yDir = moveDir.y;
         //moveDir = new Vector3(inputX * moveSpeed, moveDir.y, inputY * moveSpeed);
         moveDir = (cameraController.forward * moveSpeed * inputY) + (cameraController.right * moveSpeed * inputX);
         moveDir = moveDir.normalized * moveSpeed;
-        moveDir.y = yDir;
+        //moveDir.y = yDir;
 
-        //float rotY = mouseX * turnSpeed * Mathf.Deg2Rad;
-        //transform.Rotate(Vector3.up, -rotY);
+        
         //float eulerFace = cameraController.eulerAngles.y;
         //transform.eulerAngles = new Vector3(transform.eulerAngles.x, eulerFace, transform.eulerAngles.z);
         //transform.rotation = Quaternion.Lerp(transform.rotation, transform.right, turnSpeed);
         //Vector3 faceDir = cameraController.position;
         ////Quaternion rotation = Quaternion.LookRotation(faceDir, Vector3.up);
-        //transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(faceDir), turnSpeed);
-        faceDir = new Vector3(moveDir.x, 0f, moveDir.z); //THIS IS THE KEY TO THE NEXT LINE!
-        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(faceDir), turnSpeed); //THIS ONE WORKING BUT ROTATE THE PLAYER 90X!
+        
+        //faceDir = new Vector3(moveDir.x, moveDir.y, moveDir.z); //THIS IS THE KEY TO THE NEXT LINE!
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(moveDir), turnSpeed); //THIS ONE WORKING BUT ROTATE THE PLAYER x according to vertival movement
         //AT THE END OF MOVE, STILL FACE ORIGINAL POS!
         print(transform.rotation.x);
-        //transform.Rotate(-90f, 0, 0, Space.Self);
         
+        //transform.Rotate(-90f, 0, 0, Space.Self);
+
 
         if (controller.isGrounded == true)
         {

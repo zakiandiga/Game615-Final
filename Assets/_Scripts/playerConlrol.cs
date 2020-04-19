@@ -75,12 +75,9 @@ public class playerConlrol : MonoBehaviour
 
     void Update()
     {
-        InputMagnitude();
-
-
-
         if (control.isGrounded)
         {
+            InputMagnitude();
             Debug.Log("isGrounded");
             //verticalVel -= 0;
             

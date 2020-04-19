@@ -319,7 +319,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 4580578943868154}
-  smoothFollow: 10
+  smoothFollow: 15
   smoothHeight: 10
   camHeight: {x: 0, y: 1, z: -1.25}
   mouseSense: 200
@@ -860,12 +860,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1290423881}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dd075bab024a82f4699f88ee85e3d81b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
+  moveSpeed: 10
   turnSpeed: 50
   jumpPow: 8
   gravityScale: 3
@@ -1190,12 +1190,12 @@ PrefabInstance:
     - target: {fileID: 5035404992451599687, guid: b54d81cf4d93d9440a8f40b549875716,
         type: 3}
       propertyPath: gravity
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5035404992451599687, guid: b54d81cf4d93d9440a8f40b549875716,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5036169078187523487, guid: b54d81cf4d93d9440a8f40b549875716,
         type: 3}
