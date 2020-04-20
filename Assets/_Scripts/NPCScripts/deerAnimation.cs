@@ -21,7 +21,7 @@ public class deerAnimation : MonoBehaviour
     {
         startingTime = Random.Range(8f, 13f);
         currentTime -= 1 * Time.deltaTime;
-        print(currentTime);
+
 
         if (isSleep == false && currentTime <= 0)
         {
