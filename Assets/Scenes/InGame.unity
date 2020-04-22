@@ -444,9 +444,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 4927682152817595}
   smoothFollow: 15
-  smoothHeight: 10
   camHeight: {x: 0, y: 1, z: -1.25}
   mouseSense: 200
+  smoothZoom: 80
   turnSpeed: 10
   cameraController: {fileID: 459779484}
 --- !u!54 &459779486
@@ -816,7 +816,6 @@ GameObject:
   - component: {fileID: 963194228}
   - component: {fileID: 963194227}
   - component: {fileID: 963194226}
-  - component: {fileID: 963194229}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -892,19 +891,6 @@ Transform:
   m_Father: {fileID: 459779487}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 24, y: 0, z: 0}
---- !u!114 &963194229
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 963194225}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd1257ff15a483d4a99f8c3f9094325e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 0}
 --- !u!1 &1070603037 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1464601311428522, guid: 77c43cf8f45c6454bb5e7e8e5b25871c,
@@ -1944,9 +1930,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jumpSpeed: 5
-  Jump: 0
-  sprint: 304
-  turnSpeed: 5
+  Jump: 32
+  walk: 304
+  turnSpeed: 100
   walkSpeed: 2
   runSpeed: 4
   throttle: 2
@@ -1965,7 +1951,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dbea6e745426f54e83a9bba28288179, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  run: 304
+  walk: 304
 --- !u!4 &4580578943868154 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5039840426254529971, guid: b54d81cf4d93d9440a8f40b549875716,
@@ -3000,7 +2986,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Avatar
       value: 
-      objectReference: {fileID: 9000000, guid: 88343ef78c7fb784f97180c466ed4c88, type: 3}
+      objectReference: {fileID: 9000000, guid: 9ce6002518e821e43b4f97c76700fbac, type: 3}
     - target: {fileID: 6982148561989602029, guid: b03ec8126e3e4354fb0d53b3bfc011d4,
         type: 3}
       propertyPath: m_ApplyRootMotion
@@ -3075,6 +3061,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_MinMoveDistance
       value: 0.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 7040897982192432245, guid: b03ec8126e3e4354fb0d53b3bfc011d4,
+        type: 3}
+      propertyPath: m_Center.y
+      value: 1.3
       objectReference: {fileID: 0}
     - target: {fileID: 7041828116923381029, guid: b03ec8126e3e4354fb0d53b3bfc011d4,
         type: 3}

@@ -8,8 +8,10 @@ public class snsAnim : MonoBehaviour
     Vector3 lastPos = Vector3.zero;
     CharacterController control;
     Vector3 horizontalVelocity = Vector3.zero;
-    public KeyCode run;
-    bool isRun = false;
+    public KeyCode walk;
+
+    bool isWalk = false;
+    bool isMove = false;
     
     // Start is called before the first frame update
     void Start()
@@ -19,42 +21,40 @@ public class snsAnim : MonoBehaviour
     }
 
     // Update is called once per frame
-    void LateUpdate()
+    void Update()
     {
         horizontalVelocity = new Vector3(control.velocity.x, 0, control.velocity.z);
         float horizontalSpeed = horizontalVelocity.magnitude;
         //float verticalSpeed = verticalVelocity.magnitude;
-        if (Input.GetKey(run))
-        {
-            isRun = true;
-        }
-        if (Input.GetKeyUp(run))
-        {
-            isRun = false;
-        }
 
         if (horizontalSpeed > 0)
         {
-            if (isRun)
-            {
-                anim.SetTrigger("run");
-            }
-            else
-            {
-                anim.SetTrigger("walk");
-            }
+            anim.SetBool("isMove", true);
         }
-
-
-
 
         if (horizontalVelocity.magnitude == 0)
         {
-            anim.SetTrigger("idle");
+            anim.SetBool("isMove", false);
         }
+
+        if (Input.GetKey(walk))
+        {
+            anim.SetBool("isRun", false);
+        }
+        if (Input.GetKeyUp(walk))
+        {
+            anim.SetBool("isRun", true);
+        }
+
+        if(Input.GetMouseButtonDown(0))
+        {
+            anim.SetTrigger("atk1");
+        }
+
+
         if (Input.GetButtonDown("Jump"))
         {
-            anim.SetTrigger("jump");
+            anim.SetTrigger("jump");//REAL ANIMATION NOT AVAILABLE
         }
 
         /*if (lastPos != gameObject.transform.position)

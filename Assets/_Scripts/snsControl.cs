@@ -9,7 +9,7 @@ public class snsControl : MonoBehaviour
     float moveSpeed;
     public float jumpSpeed = 10f;
     public KeyCode Jump;
-    public KeyCode sprint;
+    public KeyCode walk;
     public float turnSpeed;
     public float walkSpeed;
     public float runSpeed;
@@ -19,7 +19,7 @@ public class snsControl : MonoBehaviour
     private float verticalVel;
     public float allowMove;
     public Transform cameraController;
-    //public float jump;
+    //public GameObject cameraController;
     
     private Vector3 moveDir = Vector3.zero;
     private Vector3 moveVector;
@@ -28,7 +28,9 @@ public class snsControl : MonoBehaviour
     
     void Start()
     {
-        control = GetComponent<CharacterController>();        
+        control = GetComponent<CharacterController>();
+        throttle = runSpeed;       
+        
     }
 
     void PlayerMove()
@@ -38,6 +40,8 @@ public class snsControl : MonoBehaviour
 
         var forward = cameraController.forward;
         var right = cameraController.right;
+        //var forward = cameraController.transform.forward;
+        //var right = cameraController.transform.right;
         var up = 0;
 
         forward.y = 0f;
@@ -47,7 +51,7 @@ public class snsControl : MonoBehaviour
 
         moveDir = forward * inputY + right * inputX;
         //moveDir = new Vector3(forward.x * inputY, 0, right.x * inputX);
-        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(moveDir), turnSpeed);
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(moveDir), turnSpeed *Time.deltaTime);
     }
     
     void InputMagnitude()
@@ -65,15 +69,16 @@ public class snsControl : MonoBehaviour
         }
     }
 
+
     void WalkRun()
     {
-        if(Input.GetKey (sprint))
-        {
-            throttle = runSpeed;
-        }
-        if(Input.GetKeyUp(sprint))
+        if(Input.GetKey (walk))
         {
             throttle = walkSpeed;
+        }
+        if(Input.GetKeyUp(walk))
+        {
+            throttle = runSpeed;
         }
     }
     

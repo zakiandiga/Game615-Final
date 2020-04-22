@@ -6,18 +6,27 @@ public class cameraMovement : MonoBehaviour
 {
     public Transform player;
     public float smoothFollow = 0.2f;
-    public float smoothHeight;
     public Vector3 camHeight;
     public float mouseSense = 10f;
+
     //public Quaternion camAngle;
     //public Vector3 defaultView;
+    float zoomDir;
+    public float smoothZoom = 80f;
+    float allowScroll;
+    float zoomSpeed;
+    float zoomPos;
+
+    private float scrollSpeed = 100f;
     public float turnSpeed;
     float xRot;
     float yRot;
     float yPos = 1f;
-    Camera cam;
-    public GameObject cameraController;
 
+    public GameObject cameraController;
+    
+    Camera cam;
+    
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
@@ -26,13 +35,14 @@ public class cameraMovement : MonoBehaviour
         
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
         //POSITION
         float mouseX = Input.GetAxis("Mouse X") * mouseSense * Time.deltaTime;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSense * Time.deltaTime;
+        Vector3 startPos = transform.position;
         Vector3 newPosition = new Vector3(player.position.x, player.position.y +0.6f, player.position.z);
-        Vector3 smoothPos = Vector3.Lerp(transform.position, newPosition, smoothFollow * Time.deltaTime);
+        Vector3 smoothPos = Vector3.Lerp(startPos, newPosition, smoothFollow * Time.deltaTime);
         transform.position = smoothPos;
 
         //ROTATION
@@ -41,8 +51,24 @@ public class cameraMovement : MonoBehaviour
         yRot = Mathf.Clamp(yRot, -40f, 40f);
         transform.rotation = Quaternion.Euler(yRot,xRot,0);
 
+        //ZOOM
+        float zoomDir = Input.GetAxis("Mouse ScrollWheel");        
+        zoomPos = cam.transform.localPosition.z + (zoomDir * zoomPos * Time.deltaTime);
+        zoomPos = Mathf.Clamp(zoomPos, -1.3f, -0.6f);
+        cam.transform.localPosition = new Vector3(cam.transform.localPosition.x, cam.transform.localPosition.y, zoomPos);
+
+
+
+
+
+        /*float currentZoom = cam.fieldOfView;
+        float zoomer = Input.GetAxis("Mouse ScrollWheel") * scrollSpeed ;
+        float zoomDir = currentZoom + zoomer;
         
-         
+        currentZoom = Mathf.MoveTowards(currentZoom, zoomDir, smoothZoom * Time.deltaTime);
+        currentZoom = Mathf.Clamp(currentZoom, 50f, 100f);
+        cam.fieldOfView = currentZoom;*/
+
         //VERTICAL MOUSE = MOVE VERTICAL CAM
         //yPos -= mouseY/20;
         //yPos = Mathf.Clamp(yPos, 0.3f, 2f);
@@ -54,7 +80,7 @@ public class cameraMovement : MonoBehaviour
         //xRot -= mouseY;
         //xRot = Mathf.Clamp(xRot, -30f, 45f);
         //Camera.main.transform.localRotation = Quaternion.Euler(xRot, 0, 0);
-        
+
         //cam.transform.LookAt(newPosition);
 
         //Vector3 direction = newCampos - cam.transform.position;
