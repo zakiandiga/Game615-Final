@@ -27,10 +27,10 @@ public class characterControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(0, 0, moveSpeed * Input.GetAxis("Vertical") * Time.deltaTime);
+        //transform.Translate(0, 0, moveSpeed * Input.GetAxis("Vertical") * Time.deltaTime);
 
-        transform.Rotate(0, turnSpeed * Input.GetAxis("Horizontal") * Time.deltaTime, 0);
-        /*if (Input.GetKey(front))
+        //transform.Rotate(0, turnSpeed * Input.GetAxis("Horizontal") * Time.deltaTime, 0);
+        if (Input.GetKey(front))
         {
             transform.position += transform.TransformDirection(Vector3.forward) * Time.deltaTime * moveSpeed;//maju
         }
@@ -38,13 +38,13 @@ public class characterControl : MonoBehaviour
         {
             transform.position += transform.TransformDirection(Vector3.back) * Time.deltaTime * moveSpeed;//mundur
         }
-        if (Input.GetKeyDown(left))
+        if (Input.GetKey(left))
         {
             transform.position += transform.TransformDirection(Vector3.left) * Time.deltaTime * moveSpeed;//kiri
         }
-        if (Input.GetKeyDown(right))
+        if (Input.GetKey(right))
         {
             transform.position += transform.TransformDirection(Vector3.right) * Time.deltaTime * moveSpeed;//kanan
-        }*/
+        }
     }
 }

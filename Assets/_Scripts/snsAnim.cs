@@ -48,13 +48,14 @@ public class snsAnim : MonoBehaviour
 
         if(Input.GetMouseButtonDown(0))
         {
-            anim.SetTrigger("atk1");
+            anim.Play("SnSAtk1");
+            //anim.SetTrigger("atk1");
         }
 
 
         if (Input.GetButtonDown("Jump"))
         {
-            anim.SetTrigger("jump");//REAL ANIMATION NOT AVAILABLE
+            anim.Play("SnSJump");//REAL ANIMATION NOT AVAILABLE
         }
 
         /*if (lastPos != gameObject.transform.position)

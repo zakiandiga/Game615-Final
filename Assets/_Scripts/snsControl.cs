@@ -13,12 +13,14 @@ public class snsControl : MonoBehaviour
     public float turnSpeed;
     public float walkSpeed;
     public float runSpeed;
-    public float throttle;    
+    public float throttle;
+    public static bool isWalk = false;
     
     public float gravity;
-    private float verticalVel;
+    //private float verticalVel;
     public float allowMove;
     public Transform cameraController;
+    public Transform viewPort;
     //public GameObject cameraController;
     
     private Vector3 moveDir = Vector3.zero;
@@ -29,8 +31,7 @@ public class snsControl : MonoBehaviour
     void Start()
     {
         control = GetComponent<CharacterController>();
-        throttle = runSpeed;       
-        
+        throttle = runSpeed;            
     }
 
     void PlayerMove()
@@ -38,25 +39,46 @@ public class snsControl : MonoBehaviour
         inputX = Input.GetAxis("Horizontal");
         inputY = Input.GetAxis("Vertical");
 
-        var forward = cameraController.forward;
-        var right = cameraController.right;
-        //var forward = cameraController.transform.forward;
-        //var right = cameraController.transform.right;
-        var up = 0;
+        Vector3 forward = cameraController.forward;
+        Vector3 right = cameraController.right;
+        //float up = 0;
 
         forward.y = 0f;
         right.y = 0f;
         forward.Normalize();
         right.Normalize();
 
-        moveDir = forward * inputY + right * inputX;
-        //moveDir = new Vector3(forward.x * inputY, 0, right.x * inputX);
-        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(moveDir), turnSpeed *Time.deltaTime);
+        if(isWalk)
+        {
+            moveDir = forward * inputY + right * inputX;
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(moveDir), turnSpeed * Time.deltaTime);
+            //CHANGE THIS SO THE CHARACTER ALWAYS FACE CAMERA LATER
+
+            //Trial & error for face camera//
+            //transform.Translate(0, 0, throttle * Input.GetAxis("Vertical") * Time.deltaTime);
+
+            //moveDir = forward * inputY;
+            //transform.rotation = Quaternion.Euler (0, turnSpeed * (inputX*-1) * Time.deltaTime, 0);
+            //transform.rotation = Quaternion.Euler(0, xRot, 0);
+            //moveDir = forward * inputY + right * inputX;
+
+            //transform.LookAt(viewPort);
+        }
+
+
+        if (isWalk == false)
+        {
+            //DEFAULT MOVE(RUN)
+            moveDir = forward * inputY + right * inputX;
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(moveDir), turnSpeed * Time.deltaTime);
+
+        }
+        
     }
     
     void InputMagnitude()
     {
-        //Input value
+        //Input value from pressing move button/key
         inputX = Input.GetAxis("Horizontal");
         inputY = Input.GetAxis("Vertical");
 
@@ -74,10 +96,12 @@ public class snsControl : MonoBehaviour
     {
         if(Input.GetKey (walk))
         {
+            isWalk = true;
             throttle = walkSpeed;
         }
         if(Input.GetKeyUp(walk))
         {
+            isWalk = false;
             throttle = runSpeed;
         }
     }
@@ -94,14 +118,13 @@ public class snsControl : MonoBehaviour
             if (Input.GetButtonDown("Jump"))
             {
                 moveDir.y = jumpSpeed;
-
             }
         }
 
-        if (control.isGrounded == false)
-        {
-            verticalVel -= gravity;
-        }
+        //if (control.isGrounded == false)
+        //{
+        //   verticalVel -= gravity;
+        //}
 
         moveDir.y += Physics.gravity.y * gravity * Time.deltaTime;
         control.Move((moveDir * throttle) * Time.deltaTime);

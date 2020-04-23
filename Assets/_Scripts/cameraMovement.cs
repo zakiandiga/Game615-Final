@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class cameraMovement : MonoBehaviour
 {
-    public Transform player;
+    public GameObject player;
+    public Transform viewPort;
+    //public Transform player;
     public float smoothFollow = 0.2f;
     public Vector3 camHeight;
     public float mouseSense = 10f;
@@ -16,6 +18,9 @@ public class cameraMovement : MonoBehaviour
     float allowScroll;
     float zoomSpeed;
     float zoomPos;
+    float zoomMin = -1.4f;
+    float zoomMax = -0.6f;
+    float zoomInit = -1.25f;
 
     private float scrollSpeed = 100f;
     public float turnSpeed;
@@ -38,24 +43,45 @@ public class cameraMovement : MonoBehaviour
     void LateUpdate()
     {
         //POSITION
-        float mouseX = Input.GetAxis("Mouse X") * mouseSense * Time.deltaTime;
-        float mouseY = Input.GetAxis("Mouse Y") * mouseSense * Time.deltaTime;
+        float mouseX = Input.GetAxis("Mouse X");
+        float mouseY = Input.GetAxis("Mouse Y");
         Vector3 startPos = transform.position;
-        Vector3 newPosition = new Vector3(player.position.x, player.position.y +0.6f, player.position.z);
+        Vector3 newPosition = new Vector3(player.transform.position.x, player.transform.position.y +0.6f, player.transform.position.z);
         Vector3 smoothPos = Vector3.Lerp(startPos, newPosition, smoothFollow * Time.deltaTime);
         transform.position = smoothPos;
 
         //ROTATION
-        xRot += mouseX;
-        yRot -= mouseY;
+        xRot += mouseX * mouseSense * Time.deltaTime;
+        yRot -= mouseY * mouseSense * Time.deltaTime;
         yRot = Mathf.Clamp(yRot, -40f, 40f);
-        transform.rotation = Quaternion.Euler(yRot,xRot,0);
+        transform.rotation = Quaternion.Euler(yRot, xRot, 0);
+
+        //TRIAL & ERROR FOR WALK MOVEMENT//
+        //if(snsControl.isWalk == false)
+        //{
+
+        //}
+
+        //if(snsControl.isWalk)
+        //{
+        //transform.rotation = player.transform.rotation; //This one is the last resort
+        //    yRot -= mouseY;
+        //    yRot = Mathf.Clamp(yRot, -40f, 40f);
+        //    transform.rotation = Quaternion.Euler(yRot, player.transform.rotation.y,0);
+        //xRot += (Input.GetAxis("Horizontal")+mouseX);
+        //yRot -= mouseY;
+        //yRot = Mathf.Clamp(yRot, -40f, 40f);
+        //transform.rotation = Quaternion.Euler(yRot, xRot, 0);
+
+        //}
+
 
         //ZOOM
-        float zoomDir = Input.GetAxis("Mouse ScrollWheel");        
+        float zoomDir = Input.GetAxis("Mouse ScrollWheel");
         zoomPos = cam.transform.localPosition.z + (zoomDir * zoomPos * Time.deltaTime);
-        zoomPos = Mathf.Clamp(zoomPos, -1.3f, -0.6f);
+        zoomPos = Mathf.Clamp(zoomPos, zoomMin, zoomMax);
         cam.transform.localPosition = new Vector3(cam.transform.localPosition.x, cam.transform.localPosition.y, zoomPos);
+        
 
 
 
