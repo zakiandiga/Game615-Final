@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class snsAnim : MonoBehaviour
 {
+    //Combine this to snsControl!!!!
     Animator anim;
     Vector3 lastPos = Vector3.zero;
     CharacterController control;
     Vector3 horizontalVelocity = Vector3.zero;
-    public KeyCode walk;
 
     bool isWalk = false;
     bool isMove = false;
@@ -21,41 +21,41 @@ public class snsAnim : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
         horizontalVelocity = new Vector3(control.velocity.x, 0, control.velocity.z);
         float horizontalSpeed = horizontalVelocity.magnitude;
         //float verticalSpeed = verticalVelocity.magnitude;
 
-        if (horizontalSpeed > 0)
+        if (snsControl.isMove == true)
         {
             anim.SetBool("isMove", true);
         }
 
-        if (horizontalVelocity.magnitude == 0)
+        if (snsControl.isMove == false)
         {
             anim.SetBool("isMove", false);
         }
 
-        if (Input.GetKey(walk))
+        if (snsControl.isWalk == true)
         {
             anim.SetBool("isRun", false);
         }
-        if (Input.GetKeyUp(walk))
+        if (snsControl.isWalk == false)
         {
             anim.SetBool("isRun", true);
         }
 
         if(Input.GetMouseButtonDown(0))
         {
-            anim.Play("SnSAtk1");
+            anim.SetTrigger("atk1");
             //anim.SetTrigger("atk1");
         }
 
 
         if (Input.GetButtonDown("Jump"))
         {
-            anim.Play("SnSJump");//REAL ANIMATION NOT AVAILABLE
+            anim.SetTrigger("jump");//REAL ANIMATION NOT AVAILABLE
         }
 
         /*if (lastPos != gameObject.transform.position)

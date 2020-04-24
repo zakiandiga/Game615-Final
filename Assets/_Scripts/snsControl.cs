@@ -6,32 +6,34 @@ public class snsControl : MonoBehaviour
 {
     float inputX;
     float inputY;
+    public KeyCode walk;
     float moveSpeed;
     public float jumpSpeed = 10f;
-    public KeyCode Jump;
-    public KeyCode walk;
+
     public float turnSpeed;
     public float walkSpeed;
     public float runSpeed;
     public float throttle;
     public static bool isWalk = false;
+    public static bool isMove = false;
     
     public float gravity;
     //private float verticalVel;
     public float allowMove;
     public Transform cameraController;
-    public Transform viewPort;
-    //public GameObject cameraController;
     
     private Vector3 moveDir = Vector3.zero;
-    private Vector3 moveVector;
     CharacterController control;
-
+    public GameObject weaponEquip;
+    CapsuleCollider weapon;
+    public static float weaponDamage = 10f; //In case need to be accessed by damage calculation script
+    float atkSpeed = 2f; //Sync this with animation!
     
     void Start()
     {
         control = GetComponent<CharacterController>();
-        throttle = runSpeed;            
+        throttle = runSpeed;
+        weapon = weaponEquip.GetComponent<CapsuleCollider>();
     }
 
     void PlayerMove()
@@ -41,7 +43,6 @@ public class snsControl : MonoBehaviour
 
         Vector3 forward = cameraController.forward;
         Vector3 right = cameraController.right;
-        //float up = 0;
 
         forward.y = 0f;
         right.y = 0f;
@@ -51,18 +52,7 @@ public class snsControl : MonoBehaviour
         if(isWalk)
         {
             moveDir = forward * inputY + right * inputX;
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(moveDir), turnSpeed * Time.deltaTime);
-            //CHANGE THIS SO THE CHARACTER ALWAYS FACE CAMERA LATER
-
-            //Trial & error for face camera//
-            //transform.Translate(0, 0, throttle * Input.GetAxis("Vertical") * Time.deltaTime);
-
-            //moveDir = forward * inputY;
-            //transform.rotation = Quaternion.Euler (0, turnSpeed * (inputX*-1) * Time.deltaTime, 0);
-            //transform.rotation = Quaternion.Euler(0, xRot, 0);
-            //moveDir = forward * inputY + right * inputX;
-
-            //transform.LookAt(viewPort);
+            transform.rotation = Quaternion.Slerp(transform.rotation, cameraController.rotation, turnSpeed *Time.deltaTime);
         }
 
 
@@ -87,8 +77,17 @@ public class snsControl : MonoBehaviour
 
         if (moveSpeed > allowMove)
         {
-            PlayerMove();            
+            PlayerMove();
+            isMove = true;
         }
+    }
+
+    IEnumerator AttackDelay()
+    {
+        
+        yield return new WaitForSeconds(atkSpeed);
+        weapon.enabled = false;
+        print("Ready to attack!");
     }
 
 
@@ -106,6 +105,23 @@ public class snsControl : MonoBehaviour
         }
     }
     
+    void Update()
+    {
+        if(Input.GetButtonDown("Fire1"))
+        {
+            if(weapon.enabled == false)
+            {
+                weapon.enabled = true;
+                //anim.SetTrigger("atk1");
+                StartCoroutine(AttackDelay());
+            }            
+        }
+        if (moveSpeed <= allowMove)
+        {
+            isMove = false;
+        }
+    }
+
     void LateUpdate()
     {
         WalkRun();
@@ -128,6 +144,5 @@ public class snsControl : MonoBehaviour
 
         moveDir.y += Physics.gravity.y * gravity * Time.deltaTime;
         control.Move((moveDir * throttle) * Time.deltaTime);
-        print(moveDir);
     }
 }
