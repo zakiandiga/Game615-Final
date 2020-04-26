@@ -36,7 +36,7 @@ public class playerConlrol : MonoBehaviour
 
         var forward = cameraController.forward;
         var right = cameraController.right;
-        var up = 0;
+        //var up = 0;
 
         forward.y = 0f;
         right.y = 0f;

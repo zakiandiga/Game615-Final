@@ -4,15 +4,12 @@ using UnityEngine;
 
 public class snsAnim : MonoBehaviour
 {
-    //Combine this to snsControl!!!!
+    //Old animator script
     Animator anim;
     Vector3 lastPos = Vector3.zero;
     CharacterController control;
     Vector3 horizontalVelocity = Vector3.zero;
 
-    bool isWalk = false;
-    bool isMove = false;
-    
     // Start is called before the first frame update
     void Start()
     {
@@ -48,7 +45,7 @@ public class snsAnim : MonoBehaviour
 
         if(Input.GetMouseButtonDown(0))
         {
-            anim.SetTrigger("atk1");
+            //anim.SetTrigger("atk1");
             //anim.SetTrigger("atk1");
         }
 

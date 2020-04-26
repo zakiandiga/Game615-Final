@@ -4,36 +4,38 @@ using UnityEngine;
 
 public class snsControl : MonoBehaviour
 {
+    Animator anim;
+
     float inputX;
     float inputY;
     public KeyCode walk;
     float moveSpeed;
     public float jumpSpeed = 10f;
+    public static bool isWalk = false;
+    public static bool isMove = false;
 
     public float turnSpeed;
     public float walkSpeed;
     public float runSpeed;
     public float throttle;
-    public static bool isWalk = false;
-    public static bool isMove = false;
     
     public float gravity;
-    //private float verticalVel;
     public float allowMove;
     public Transform cameraController;
     
     private Vector3 moveDir = Vector3.zero;
     CharacterController control;
     public GameObject weaponEquip;
-    CapsuleCollider weapon;
+    CapsuleCollider weapon;  //In case adding equip weapon feature
     public static float weaponDamage = 10f; //In case need to be accessed by damage calculation script
-    float atkSpeed = 2f; //Sync this with animation!
+    float atkSpeed = 1.3f; //Sync this with animation!
     
     void Start()
     {
         control = GetComponent<CharacterController>();
         throttle = runSpeed;
         weapon = weaponEquip.GetComponent<CapsuleCollider>();
+        anim = GetComponent<Animator>();
     }
 
     void PlayerMove()
@@ -49,16 +51,16 @@ public class snsControl : MonoBehaviour
         forward.Normalize();
         right.Normalize();
 
-        if(isWalk)
+        if(isWalk) //WALK MODE
         {
+            var newRot = Vector3.zero;
             moveDir = forward * inputY + right * inputX;
-            transform.rotation = Quaternion.Slerp(transform.rotation, cameraController.rotation, turnSpeed *Time.deltaTime);
+            transform.eulerAngles = new Vector3(0, cameraController.eulerAngles.y, cameraController.eulerAngles.z);
         }
 
 
-        if (isWalk == false)
+        if (isWalk == false) //RUN MODE (DEFAULT)
         {
-            //DEFAULT MOVE(RUN)
             moveDir = forward * inputY + right * inputX;
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(moveDir), turnSpeed * Time.deltaTime);
 
@@ -78,16 +80,17 @@ public class snsControl : MonoBehaviour
         if (moveSpeed > allowMove)
         {
             PlayerMove();
-            isMove = true;
+            isMove = true; //in case later need action with move condition
+            anim.SetBool("isMove", true); //ANIMATOR toggle on move
         }
     }
 
-    IEnumerator AttackDelay()
+    //AtkSpeed function
+    IEnumerator AttackDelay()    
     {
-        
+      
         yield return new WaitForSeconds(atkSpeed);
         weapon.enabled = false;
-        print("Ready to attack!");
     }
 
 
@@ -97,28 +100,29 @@ public class snsControl : MonoBehaviour
         {
             isWalk = true;
             throttle = walkSpeed;
+            anim.SetBool("isRun", false); //ANIMATOR walk toggle
         }
         if(Input.GetKeyUp(walk))
         {
             isWalk = false;
             throttle = runSpeed;
+            anim.SetBool("isRun", true); //ANIMATOR walk toggle
         }
     }
     
     void Update()
     {
-        if(Input.GetButtonDown("Fire1"))
+        if(Input.GetButtonDown("Fire1") && weapon.enabled == false)
         {
-            if(weapon.enabled == false)
-            {
-                weapon.enabled = true;
-                //anim.SetTrigger("atk1");
-                StartCoroutine(AttackDelay());
-            }            
-        }
+            weapon.enabled = true;
+            anim.SetTrigger("atk1"); //ANIMATOR
+            StartCoroutine(AttackDelay());
+        }            
+        
         if (moveSpeed <= allowMove)
         {
             isMove = false;
+            anim.SetBool("isMove", false); //ANIMATOR toggle off move
         }
     }
 
@@ -129,18 +133,13 @@ public class snsControl : MonoBehaviour
         if (control.isGrounded)
         {
             InputMagnitude();
-            //verticalVel -= 0;
             
             if (Input.GetButtonDown("Jump"))
             {
+                anim.SetTrigger("jump"); //ANIMATOR jump trigger
                 moveDir.y = jumpSpeed;
             }
         }
-
-        //if (control.isGrounded == false)
-        //{
-        //   verticalVel -= gravity;
-        //}
 
         moveDir.y += Physics.gravity.y * gravity * Time.deltaTime;
         control.Move((moveDir * throttle) * Time.deltaTime);

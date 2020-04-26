@@ -14,7 +14,7 @@ public class cameraMovement : MonoBehaviour
     float zoomPos;
     float zoomMin = -1.4f;
     float zoomMax = -0.6f;
-    float zoomInit = -1.25f;
+    //float zoomInit = -1.25f;
 
     float xRot;
     float yRot;
