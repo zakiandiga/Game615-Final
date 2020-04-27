@@ -112,7 +112,7 @@ public class snsControl : MonoBehaviour
     
     void Update()
     {
-        if(Input.GetButtonDown("Fire1") && weapon.enabled == false)
+        if(Input.GetButtonDown("Fire1") && weapon.enabled == false) //Attack
         {
             weapon.enabled = true;
             anim.SetTrigger("atk1"); //ANIMATOR
