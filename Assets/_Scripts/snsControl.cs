@@ -9,16 +9,20 @@ public class snsControl : MonoBehaviour
     float inputX;
     float inputY;
     public KeyCode walk;
+    public KeyCode sprint;
     float moveSpeed;
     public float jumpSpeed = 10f;
     public static bool isWalk = false;
     public static bool isMove = false;
+    //bool isSprint = false;
+    public playerStatus status;
 
     public float turnSpeed;
     public float walkSpeed;
     public float runSpeed;
+    public float sprintSpeed;
     public float throttle;
-    
+ 
     public float gravity;
     public float allowMove;
     public Transform cameraController;
@@ -36,6 +40,7 @@ public class snsControl : MonoBehaviour
         throttle = runSpeed;
         weapon = weaponEquip.GetComponent<CapsuleCollider>();
         anim = GetComponent<Animator>();
+        //status = GetComponent<playerStatus>();
     }
 
     void PlayerMove()
@@ -102,6 +107,20 @@ public class snsControl : MonoBehaviour
             throttle = walkSpeed;
             anim.SetBool("isRun", false); //ANIMATOR walk toggle
         }
+        if(Input.GetKey(sprint) && isWalk == false && status.currentStamina > 0)  //SPRINT COMMAND
+        {
+            //isSprint = true;
+            status.isSprint = true;
+            throttle = sprintSpeed;
+            anim.SetBool("isSprint", true);
+        }
+        if(Input.GetKeyUp(sprint) || status.currentStamina < 0)
+        {
+            throttle = runSpeed;
+            status.isSprint = false;
+            anim.SetBool("isSprint", false);            
+        }
+
         if(Input.GetKeyUp(walk))
         {
             isWalk = false;

@@ -8,6 +8,7 @@ public class cameraMovement : MonoBehaviour
     //public Transform player;
     public float smoothFollow = 0.2f;
     public float mouseSense = 10f;
+    public float cameraHeight = 0.8f;
 
     public float smoothZoom = 80f;
     float zoomSpeed = 10f;
@@ -36,7 +37,7 @@ public class cameraMovement : MonoBehaviour
         float mouseX = Input.GetAxis("Mouse X");
         float mouseY = Input.GetAxis("Mouse Y");
         Vector3 startPos = transform.position;
-        Vector3 newPosition = new Vector3(player.transform.position.x, player.transform.position.y +0.6f, player.transform.position.z);
+        Vector3 newPosition = new Vector3(player.transform.position.x, player.transform.position.y + cameraHeight, player.transform.position.z);
         Vector3 smoothPos = Vector3.Lerp(startPos, newPosition, smoothFollow * Time.deltaTime);
         transform.position = smoothPos;
 
