@@ -5,8 +5,6 @@ using UnityEngine;
 public class playerAnimation : MonoBehaviour
 {
     Animator anim;
-    public KeyCode moveForward;
-    public KeyCode moveBackward;
     Vector3 lastPos = Vector3.zero;
     CharacterController control;
     Vector3 horizontalVelocity = Vector3.zero;
