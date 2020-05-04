@@ -4,17 +4,23 @@ using UnityEngine;
 
 public class weaponCollider : MonoBehaviour
 {
-    public int damage = 1;
-    public bool playerMode;
+    //THIS SCRIPT SHOULD BE ATTACHED TO WEAPONS    
+    public int damage = 1;  //SET IN EDITOR
+    public bool playerMode;  //SET IN EDITOR
     //public bool enemyMode;
     GameObject player;
     GameObject enemy;
+
+    Collider enemyCol;
+    Collider playerCol;
 
     
     void Start()
     {
         player = GameObject.FindWithTag("Player");
         enemy = GameObject.FindWithTag("Enemy");
+        playerCol = player.GetComponent<Collider>();
+        enemyCol = enemy.GetComponent<Collider>();
 
         if (playerMode)
         {

@@ -48,20 +48,20 @@ public class minionBehavior : MonoBehaviour
         patrolZ = transform.position.z + Random.Range(-5f, 5f);
         patrolPos = new Vector3(patrolX, transform.position.y, patrolZ);
         agent.SetDestination(patrolPos);
-        print("I am patroling again");
+        //print("I am patroling again");
         isPatrol = true;
         
         yield return new WaitForSeconds(walkWait);
         isWalk = true;
         agent.speed = patrolSpeed;
         anim.SetBool("isWalk", true);
-        print("I am patroling toward " + patrolPos);
+        //print("I am patroling toward " + patrolPos);
         
         yield return new WaitForSeconds(walkTime);
         isWalk = false;
         agent.speed = 0;
         anim.SetBool("isWalk", false);
-        print("I am ready for the next patrol");
+        //print("I am ready for the next patrol");
 
         isPatrol = false;
     }
@@ -80,7 +80,7 @@ public class minionBehavior : MonoBehaviour
         isRun = true;
         agent.speed = chasingSpeed;
         anim.SetBool("isRun", true);
-        print("CHASING PLAYER!!!");
+        //print("CHASING PLAYER!!!");
         yield return new WaitForSeconds(checkTime);
 
         isChasing = false;
@@ -92,7 +92,7 @@ public class minionBehavior : MonoBehaviour
         if (col.gameObject.tag == "Player" && isChasing == false)
         {
             detectPlayer = true;
-            print("ENEMY DETECTED!");
+            //print("ENEMY DETECTED!");
         }
     }
     void OnTriggerExit(Collider col)
@@ -101,7 +101,7 @@ public class minionBehavior : MonoBehaviour
         {
             detectPlayer = false;
             anim.SetBool("isRun", false);
-            print("ENEMY IS TOO FAR, STOP CHASING");
+            //print("ENEMY IS TOO FAR, STOP CHASING");
         }
     }
 
