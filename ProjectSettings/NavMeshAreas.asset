@@ -13,7 +13,7 @@ NavMeshProjectSettings:
     cost: 2
   - name: 
     cost: 1
-  - name: 
+  - name: Player
     cost: 1
   - name: 
     cost: 1
@@ -69,7 +69,7 @@ NavMeshProjectSettings:
     cost: 1
   - name: 
     cost: 1
-  m_LastAgentTypeID: 1479372276
+  m_LastAgentTypeID: -902729914
   m_Settings:
   - serializedVersion: 2
     agentTypeID: 0
@@ -88,11 +88,11 @@ NavMeshProjectSettings:
     debug:
       m_Flags: 0
   - serializedVersion: 2
-    agentTypeID: 1479372276
-    agentRadius: 1.27
-    agentHeight: 1.57
-    agentSlope: 32.3
-    agentClimb: 0.26
+    agentTypeID: -902729914
+    agentRadius: 1.22
+    agentHeight: 0.73
+    agentSlope: 40
+    agentClimb: 0.65
     ledgeDropHeight: 0
     maxJumpAcrossDistance: 0
     minRegionArea: 2
@@ -105,4 +105,4 @@ NavMeshProjectSettings:
       m_Flags: 0
   m_SettingNames:
   - Humanoid
-  - KingBug
+  - Minion
