@@ -29,6 +29,7 @@ public class minionStatus : MonoBehaviour
         GetComponent<minionBehavior>().enabled = false;
         print("MINION DEAD!!!!");
         Destroy(gameObject, 3);
+        spawnManager.currentMinionCount -= 1;
     }
 
     void OnTriggerEnter(Collider col)
@@ -38,9 +39,9 @@ public class minionStatus : MonoBehaviour
         {
             isHit = true;
             healthPoints -= col.gameObject.GetComponent<weaponCollider>().damage;
-            print("ENEMY HIT " + healthPoints + " DAMAGE");
+            //print("ENEMY HIT " + healthPoints + " DAMAGE");
             anim.SetTrigger("gotHit"); //ANIMATION
-            print("OUCH");                        
+            //print("OUCH");                        
         }
     }
 
