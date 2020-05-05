@@ -43,7 +43,7 @@ public class playerStatus : MonoBehaviour
         {
             whoCollide = col.gameObject.tag;
             healthPoints -= col.gameObject.GetComponent<weaponCollider>().damage;
-            print("remaining health: " + healthPoints);
+            //print("remaining health: " + healthPoints);
             anim.SetTrigger("gotHit"); //ANIMATION
             healthBar.SetHealth(healthPoints);            
         }
@@ -115,8 +115,5 @@ public class playerStatus : MonoBehaviour
         {
             PlayerDead();
         }
-
-
-
     }
 }

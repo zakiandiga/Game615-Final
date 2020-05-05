@@ -7,10 +7,13 @@ public class minionBehavior : MonoBehaviour
 {
     float atkRoutine = 3f;
     float atkDelay = 0.5f;
-    float atkStart = 0.3f;
+    float atkStart = 0.2f;
     float patrolDelay;
     float patrolSpeed = 1.5f;
     float chasingSpeed = 3.5f;
+
+    float chasingRadius = 13f;
+    float patrolRadius = 6f;
 
     public GameObject weaponOne;
     CapsuleCollider horn;
@@ -48,20 +51,20 @@ public class minionBehavior : MonoBehaviour
         patrolZ = transform.position.z + Random.Range(-5f, 5f);
         patrolPos = new Vector3(patrolX, transform.position.y, patrolZ);
         agent.SetDestination(patrolPos);
-        print("I am patroling again");
+        //print("I am patroling again");
         isPatrol = true;
         
         yield return new WaitForSeconds(walkWait);
         isWalk = true;
         agent.speed = patrolSpeed;
         anim.SetBool("isWalk", true);
-        print("I am patroling toward " + patrolPos);
+        //print("I am patroling toward " + patrolPos);
         
         yield return new WaitForSeconds(walkTime);
         isWalk = false;
         agent.speed = 0;
         anim.SetBool("isWalk", false);
-        print("I am ready for the next patrol");
+        //print("I am ready for the next patrol");
 
         isPatrol = false;
     }
@@ -80,7 +83,7 @@ public class minionBehavior : MonoBehaviour
         isRun = true;
         agent.speed = chasingSpeed;
         anim.SetBool("isRun", true);
-        print("CHASING PLAYER!!!");
+        //print("CHASING PLAYER!!!");
         yield return new WaitForSeconds(checkTime);
 
         isChasing = false;
@@ -92,7 +95,8 @@ public class minionBehavior : MonoBehaviour
         if (col.gameObject.tag == "Player" && isChasing == false)
         {
             detectPlayer = true;
-            print("ENEMY DETECTED!");
+            GetComponent<SphereCollider>().radius = chasingRadius;
+            //print("ENEMY DETECTED!");
         }
     }
     void OnTriggerExit(Collider col)
@@ -101,18 +105,48 @@ public class minionBehavior : MonoBehaviour
         {
             detectPlayer = false;
             anim.SetBool("isRun", false);
-            print("ENEMY IS TOO FAR, STOP CHASING");
+            GetComponent<SphereCollider>().radius = patrolRadius;
+            //print("ENEMY IS TOO FAR, STOP CHASING");
         }
+    }
+
+    void OnCollisionEnter(Collision col)
+    {
+        if(col.gameObject.tag == "Player")
+        {            
+            agent.SetDestination(transform.position);
+            MinionStab();
+        }
+    }
+
+    IEnumerator BugAttackDelay() //Testing attack function
+    {
+        isAttack = true;
+        agent.speed = 0;
+        yield return new WaitForSeconds(atkStart);
+        anim.SetTrigger("StabAtk");
+        horn.enabled = true;
+        //yield return new WaitForSeconds(atkStart);
+        yield return new WaitForSeconds(atkDelay);
+        //BugAttack();
+        horn.enabled = false;
+        isAttack = false;
+    }
+
+    void MinionStab()
+    {
+        
+        StartCoroutine(BugAttackDelay());
     }
 
     void Update()
     {
-        if(isPatrol == false && detectPlayer == false) //PATROL BEHAVIOR WHEN PLAYER NOT DETECTED
+        if(isPatrol == false && detectPlayer == false && isAttack == false) //PATROL BEHAVIOR WHEN PLAYER NOT DETECTED
         {
             StartCoroutine(MinionPatrol());
         }
 
-        if(isChasing == false && detectPlayer == true) //CHASING BEHAVIOR WHEN PLAYER DETECTED
+        if(isChasing == false && detectPlayer == true && isAttack == false) //CHASING BEHAVIOR WHEN PLAYER DETECTED
         {
             StartCoroutine(ChasePlayer());
         }
@@ -124,24 +158,8 @@ public class minionBehavior : MonoBehaviour
         //}
     }
           
-    /*
-    void MinionStab()
-    {
-        anim.SetTrigger("StabAtk");
-        isAttack = true;
-        StartCoroutine(BugAttackDelay());
-    }
-    IEnumerator BugAttackDelay() //Testing attack function
-    {
-        yield return new WaitForSeconds(atkStart);
-        horn.enabled = true;
-        yield return new WaitForSeconds(atkDelay);
-        //BugAttack();
-        horn.enabled = false;
-    }
-    */
+    
 
-    // Update is called once per frame
 
 
     //This attack routine should be removed after the enemy has attack behavior

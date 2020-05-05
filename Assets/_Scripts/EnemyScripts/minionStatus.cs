@@ -6,34 +6,56 @@ public class minionStatus : MonoBehaviour
 {
     public float maxHealth = 5f;
     public float healthPoints;
-    //public bool isChasing = false;
     public bool isDead = false;
+    bool isHit = false;
     Animator anim;
+    //NavMeshAgent agent;
 
     void Start()
     {
         healthPoints = maxHealth;
         anim = GetComponent<Animator>();
+        //agent = GetComponent<NavMeshAgent>();
     }
 
     void MinionDead()
-    {
-        isDead = true;
+    {        
         anim.SetBool("isDie", true);
-        GetComponent<Collider>().enabled = false;
+        GetComponent<CapsuleCollider>().enabled = false;
+        GetComponent<BoxCollider>().enabled = false;
+        GetComponent<SphereCollider>().enabled = false;
         GetComponent<minionBehavior>().enabled = false;
-        //anim.enabled = false;
         print("MINION DEAD!!!!");
-        //set dead animation
-        //destroy after a couple
-        //remove from list
+        Destroy(gameObject, 3);
+        spawnManager.currentMinionCount -= 1;
     }
 
-    // Update is called once per frame
+    void OnTriggerEnter(Collider col)
+    {
+        
+        if(col.gameObject.tag == "playerWeapon" && isHit == false)
+        {
+            isHit = true;
+            healthPoints -= col.gameObject.GetComponent<weaponCollider>().damage;
+            //print("ENEMY HIT " + healthPoints + " DAMAGE");
+            anim.SetTrigger("gotHit"); //ANIMATION
+            //print("OUCH");                        
+        }
+    }
+
+    void OnTriggerExit(Collider col)
+    {
+        if(isHit == true)
+        {
+            isHit = false;
+        }
+    }
+
     void Update()
     {
         if(healthPoints <= 0 && isDead == false)
         {
+            isDead = true;
             MinionDead();
         }
     }
