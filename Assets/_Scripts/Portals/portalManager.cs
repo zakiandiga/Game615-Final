@@ -10,6 +10,7 @@ public class portalManager : MonoBehaviour
     public Text confirmText;
     public GameObject confirmBox;
     public GameObject player;
+    public int targetScene;
 
     public KeyCode yes;
     public KeyCode no;
@@ -20,9 +21,7 @@ public class portalManager : MonoBehaviour
         if(col.gameObject.tag == "Player")
         {
             confirmBox.SetActive(true);
-            waitingConfirmation = true;
-            print("Move to safe area");
-            
+            waitingConfirmation = true;                     
         }
     }
 
@@ -46,7 +45,7 @@ public class portalManager : MonoBehaviour
                 confirmBox.SetActive(false);
                 waitingConfirmation = false;
                 player.GetComponent<snsControl>().enabled = true;
-                SceneManager.LoadScene(0);
+                SceneManager.LoadScene(targetScene);
             }
             if(Input.GetKey(no))
             {

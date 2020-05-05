@@ -18,7 +18,7 @@ public class spawnManager : MonoBehaviour
 
     void Start()
     {
-        for (int i = 0; i < maxMinionCount; ++i) //i = spawn point!!
+        for (int i = 0; i < maxMinionCount; ++i) 
         {
             posX = Random.Range(-20, 20);
             posY = 0;
@@ -45,10 +45,8 @@ public class spawnManager : MonoBehaviour
             yield return new WaitForSeconds(respawnTime);
             isRespawning = false;
         }
-
-
     }
-    // Update is called once per frame
+    
     void Update()
     {
         if(currentMinionCount < maxMinionCount && isRespawning == false)

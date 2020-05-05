@@ -7,10 +7,13 @@ public class minionBehavior : MonoBehaviour
 {
     float atkRoutine = 3f;
     float atkDelay = 0.5f;
-    float atkStart = 0.3f;
+    float atkStart = 0.2f;
     float patrolDelay;
     float patrolSpeed = 1.5f;
     float chasingSpeed = 3.5f;
+
+    float chasingRadius = 13f;
+    float patrolRadius = 6f;
 
     public GameObject weaponOne;
     CapsuleCollider horn;
@@ -92,6 +95,7 @@ public class minionBehavior : MonoBehaviour
         if (col.gameObject.tag == "Player" && isChasing == false)
         {
             detectPlayer = true;
+            GetComponent<SphereCollider>().radius = chasingRadius;
             //print("ENEMY DETECTED!");
         }
     }
@@ -101,18 +105,48 @@ public class minionBehavior : MonoBehaviour
         {
             detectPlayer = false;
             anim.SetBool("isRun", false);
+            GetComponent<SphereCollider>().radius = patrolRadius;
             //print("ENEMY IS TOO FAR, STOP CHASING");
         }
     }
 
+    void OnCollisionEnter(Collision col)
+    {
+        if(col.gameObject.tag == "Player")
+        {            
+            agent.SetDestination(transform.position);
+            MinionStab();
+        }
+    }
+
+    IEnumerator BugAttackDelay() //Testing attack function
+    {
+        isAttack = true;
+        agent.speed = 0;
+        yield return new WaitForSeconds(atkStart);
+        anim.SetTrigger("StabAtk");
+        horn.enabled = true;
+        //yield return new WaitForSeconds(atkStart);
+        yield return new WaitForSeconds(atkDelay);
+        //BugAttack();
+        horn.enabled = false;
+        isAttack = false;
+    }
+
+    void MinionStab()
+    {
+        
+        StartCoroutine(BugAttackDelay());
+    }
+
     void Update()
     {
-        if(isPatrol == false && detectPlayer == false) //PATROL BEHAVIOR WHEN PLAYER NOT DETECTED
+        if(isPatrol == false && detectPlayer == false && isAttack == false) //PATROL BEHAVIOR WHEN PLAYER NOT DETECTED
         {
             StartCoroutine(MinionPatrol());
         }
 
-        if(isChasing == false && detectPlayer == true) //CHASING BEHAVIOR WHEN PLAYER DETECTED
+        if(isChasing == false && detectPlayer == true && isAttack == false) //CHASING BEHAVIOR WHEN PLAYER DETECTED
         {
             StartCoroutine(ChasePlayer());
         }
@@ -124,24 +158,8 @@ public class minionBehavior : MonoBehaviour
         //}
     }
           
-    /*
-    void MinionStab()
-    {
-        anim.SetTrigger("StabAtk");
-        isAttack = true;
-        StartCoroutine(BugAttackDelay());
-    }
-    IEnumerator BugAttackDelay() //Testing attack function
-    {
-        yield return new WaitForSeconds(atkStart);
-        horn.enabled = true;
-        yield return new WaitForSeconds(atkDelay);
-        //BugAttack();
-        horn.enabled = false;
-    }
-    */
+    
 
-    // Update is called once per frame
 
 
     //This attack routine should be removed after the enemy has attack behavior

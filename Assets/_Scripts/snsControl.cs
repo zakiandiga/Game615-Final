@@ -14,7 +14,6 @@ public class snsControl : MonoBehaviour
     public float jumpSpeed = 10f;
     public static bool isWalk = false;
     public static bool isMove = false;
-    //bool isSprint = false;
     public playerStatus status;
 
     public float turnSpeed;
@@ -68,7 +67,6 @@ public class snsControl : MonoBehaviour
         {
             moveDir = forward * inputY + right * inputX;
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(moveDir), turnSpeed * Time.deltaTime);
-
         }
         
     }
@@ -86,7 +84,7 @@ public class snsControl : MonoBehaviour
         {
             PlayerMove();
             isMove = true; //in case later need action with move condition
-            anim.SetBool("isMove", true); //ANIMATOR toggle on move
+            anim.SetBool("isMove", true);
         }
     }
 
@@ -159,7 +157,6 @@ public class snsControl : MonoBehaviour
                 moveDir.y = jumpSpeed;
             }
         }
-
         moveDir.y += Physics.gravity.y * gravity * Time.deltaTime;
         control.Move((moveDir * throttle) * Time.deltaTime);
     }

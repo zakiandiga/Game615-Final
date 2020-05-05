@@ -13,8 +13,11 @@ public class cameraMovement : MonoBehaviour
     public float smoothZoom = 80f;
     float zoomSpeed = 10f;
     float zoomPos;
+    float zoomPosY;
     float zoomMin = -1.4f;
     float zoomMax = -0.6f;
+    float zoomMinY = 0.15f;
+    float zoomMaxY = 0.5f;
     //float zoomInit = -1.25f;
 
     float xRot;
@@ -50,7 +53,10 @@ public class cameraMovement : MonoBehaviour
         //ZOOM
         float zoomDir = Input.GetAxis("Mouse ScrollWheel") * zoomSpeed * -1;
         zoomPos = cam.transform.localPosition.z + (zoomDir * zoomPos * Time.deltaTime);
+        zoomPosY = cam.transform.localPosition.y + ((zoomDir * 2.5f) * zoomPosY * Time.deltaTime);
         zoomPos = Mathf.Clamp(zoomPos, zoomMin, zoomMax);
-        cam.transform.localPosition = new Vector3(cam.transform.localPosition.x, cam.transform.localPosition.y, zoomPos);
+        zoomPosY = Mathf.Clamp(zoomPosY, zoomMinY, zoomMaxY);
+        //cam.transform.localPosition = new Vector3(cam.transform.localPosition.x, cam.transform.localPosition.y, zoomPos);
+        cam.transform.localPosition = new Vector3(cam.transform.localPosition.x, zoomPosY, zoomPos);
     }
 }

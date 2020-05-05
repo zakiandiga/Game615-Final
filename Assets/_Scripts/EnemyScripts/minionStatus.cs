@@ -6,7 +6,6 @@ public class minionStatus : MonoBehaviour
 {
     public float maxHealth = 5f;
     public float healthPoints;
-    //public bool isChasing = false;
     public bool isDead = false;
     bool isHit = false;
     Animator anim;
@@ -20,8 +19,7 @@ public class minionStatus : MonoBehaviour
     }
 
     void MinionDead()
-    {
-        
+    {        
         anim.SetBool("isDie", true);
         GetComponent<CapsuleCollider>().enabled = false;
         GetComponent<BoxCollider>().enabled = false;
